@@ -10,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "main[contenthash].js",
     clean: true,
+    assetModuleFilename: "assets/[name][ext]",
   },
   devtool: "source-map",
 
@@ -30,6 +31,17 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/.[name][ext]",
+        },
+      },
+      {
+        test: /\.html$/,
+        loader: "html-loader",
+      },
     ],
   },
 
@@ -46,7 +58,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "default",
-      file: "index.html",
+      filename: "index.html",
       template: "src/template.html",
     }),
     new BundleAnalyzerPlugin(),
